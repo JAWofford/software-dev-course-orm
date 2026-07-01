@@ -26,18 +26,8 @@ public class ContactController {
         return contactRepository.findById(id).orElse(null);
     }
 
-//    @PostMapping
-//    public Contact createContact(@RequestBody Contact contact) {
-//        return contactRepository.save(contact);
-//    }
-
     @PostMapping
     public Contact createContact(@RequestBody Contact contact) {
-        if (contact.getAddresses() != null) {
-            for (Address address : contact.getAddresses()) {
-                address.setContact(contact);
-            }
-        }
         return contactRepository.save(contact);
     }
 

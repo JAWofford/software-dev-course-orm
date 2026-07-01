@@ -2,6 +2,7 @@ package com.example.orm_exercise.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,7 @@ public class Contact {
     private String phoneNumber;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "contact", orphanRemoval = true)
-    private List<Address> addresses;
+    private List<Address> addresses = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -54,6 +55,12 @@ public class Contact {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+
+        if (addresses != null) {
+            for (Address address : addresses) {
+                address.setContact(this);
+            }
+        }
     }
 
     public Contact() {
